@@ -1,0 +1,18 @@
+.nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    
+    text-align: center;
+}
+a{
+    width: 100%;
+   
+    font-size: 2rem;
+    font-weight: bold;
+}
+a:hover{
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 255, 75);
+    transition: .5s ease-in-out;
+}

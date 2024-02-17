@@ -1,17 +1,25 @@
-
-import { Fragment } from "react"
-import { GoogleSignWithPopup } from "../../utils/firebase/firebase.utils"
-
+import { Fragment, useEffect } from "react";
+import { auth, signInWithGooglePopup, signInWithGoogleRedirect, createUserDocFromAuth } from "../../utils/firebase/firebase.utils";
+import { getRedirectResult } from "firebase/auth";
 const SignIn = () => {
-    const logUser = async () => {
-        const response = await GoogleSignWithPopup();
-        console.log(response)
+    useEffect(() => {
+        const fetchRedirectUser = async () => {
+            const response = await getRedirectResult(auth);
+            console.log(response)
+        }
+        fetchRedirectUser()
+    }, [])
+    const logUserWithPopup = async () => {
+     const { user } = await signInWithGooglePopup();
+     createUserDocFromAuth(user)
+     console.log(user);
     }
     return(
         <Fragment>
-            <h1>Sign In</h1>
-            <button onClick={logUser}>Sign In with Google</button>
+            <h1>Sign In your account</h1>
+            <button onClick={logUserWithPopup}>Sign In with Popup</button>
+            <button onClick={signInWithGoogleRedirect}>Sign In with Redirect</button>
         </Fragment>
     )
 }
-export default SignIn
+export default SignIn;
